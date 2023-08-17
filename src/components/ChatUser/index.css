@@ -1,0 +1,24 @@
+.userchat:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.5s all;
+}
+
+.selected {
+  background-color: rgba(0, 123, 255, 0.1);
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.ant-skeleton-paragraph > li:nth-child(2) {
+  margin-block-start: 3px !important;
+}
+
+.ant-skeleton-paragraph > li {
+  height: 10px !important;
+}
+
+.ant-skeleton-content {
+  padding-top: 1px !important;
+}

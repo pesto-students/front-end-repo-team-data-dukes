@@ -1,0 +1,83 @@
+.ant-form-item-explain-error {
+  font-size: 11px;
+  color: #f5222d;
+  font-weight: 600;
+  margin-inline: 5px;
+}
+
+.ant-layout-sider,
+.ant-layout-header,
+.ant-layout-content {
+  line-height: normal !important;
+  display: flex;
+}
+
+.ant-scroll-number-only-unit.current {
+  margin-left: 0.55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.45px;
+}
+
+.ant-layout-footer {
+  padding: 0px 20px !important;
+}
+
+.ant-layout-header {
+  padding-inline: 20px !important;
+}
+
+.ant-notification-notice-message {
+  margin-bottom: 0px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+.ant-notification-notice-content {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.ant-notification-notice-with-icon {
+  margin-bottom: 1px !important;
+}
+
+.ant-notification-notice {
+  border-radius: 10px;
+}
+
+.ant-drawer-content-wrapper {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  overflow: hidden;
+}
+
+.ant-drawer-header {
+  border-bottom: 0px !important;
+}
+
+.ant-drawer-close {
+  margin-top: 4px !important;
+}
+
+.ant-empty.ant-empty-image {
+  margin-bottom: 20px !important;
+}
+
+.ant-upload-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+/* .ant-upload.ant-upload-select {
+  margin: 10px !important;
+} */
+
+.ant-layout-sider-children {
+  width: 100% !important;
+}
+
+.ant-modal-content {
+  padding: 15px !important;
+}

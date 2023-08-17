@@ -1,0 +1,8 @@
+.ant-result-subtitle {
+  display: flex;
+  justify-content: center;
+}
+
+.ant-result-extra {
+  margin-top: 14px !important;
+}

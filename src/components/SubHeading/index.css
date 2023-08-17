@@ -1,0 +1,11 @@
+.desc-style {
+    font-weight: 700;
+    font-size: 12px;
+    text-align: start;
+    margin-block: 7px;
+}
+  
+.link-style {
+    color: #007bff;
+    font-weight: 700;
+}
