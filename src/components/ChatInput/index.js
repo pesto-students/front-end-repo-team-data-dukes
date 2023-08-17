@@ -15,7 +15,6 @@ import { getBase64, isGroup, showNotificationMessage } from "../../utils/common"
 import { InsertIntoRoster, InsertNewMessage } from "../../store/actions/contactAction";
 import { upload } from "../../api/fetch";
 import { generate_id } from "../../stanza/utils";
-
 const ChatInput = ({ connection, contact, manager, InsertNewMessage, InsertIntoRoster }) => {
   const [input, setInput] = useState("");
   const [inputSize, setInputSize] = useState(30);
@@ -123,7 +122,7 @@ const ChatInput = ({ connection, contact, manager, InsertNewMessage, InsertIntoR
           content={
             <div className="!bg-base-100">
             <GifPicker
-              tenorApiKey={"AIzaSyC6_hqpWtB6M_1VPM4PnKkg1mIJ50wdV8s"}
+              tenorApiKey={process.env.REACT_APP_TENOR_API_KEY}
               onGifClick={(ev) => {
                 // send GIF message
                 onSendMessage(ev["preview"], "gif");
