@@ -11,14 +11,14 @@ import Verify from "../Verify";
 import SubHeading from "../../components/SubHeading";
 
 import "./index.css";
-import {ThemeProvider} from "../../store/context/ThemeProvider";
+import { ThemeProvider } from "../../store/context/ThemeProvider";
 
-const Login = ({ AuthorizeUI,theme }) => {
+const Login = ({ AuthorizeUI, theme }) => {
   const [error, setError] = useState(null);
   const [mError, setMError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showVerify, setShowVerify] = useState(false);
-  const {currentTheme} = useContext(ThemeProvider);
+  const { currentTheme } = useContext(ThemeProvider);
   const onLoginSuccess = (response, request) => {
     if (response.status === 200) {
       const data = response?.data;
@@ -52,7 +52,7 @@ const Login = ({ AuthorizeUI,theme }) => {
       return;
     } else if (values["email_id"] && !EMAIL_REGEX.test(values["email_id"])) {
       setError(
-        "Invalid Email ID ! ex : ( user@localhost | user@localhost.com )"
+        "Invalid Email ID ! ex : ( user@talktimeapp | user@talktimeapp.com )"
       );
       setMError(null);
       return;
@@ -76,58 +76,60 @@ const Login = ({ AuthorizeUI,theme }) => {
       {showVerify && <Verify setShowVerify={setShowVerify} />}
       {!showVerify && (
         <>
-        <div data-theme={currentTheme}  className="h-full w-full flex">
-        <div className="flex-1 flex justify-center items-center bg-base-200">
-          <img src="./logo_talktime.png"  alt="logo.png"/>
-        </div>
-        <Form className=" flex-1 bg-base-100" onFinish={onFinish}>
-          
-          <Row className="parent-holder">
-          
-            <Row className="sub-parent-holder bg-base-100">
+          <div data-theme={currentTheme} className="h-full w-full flex">
+            <div className="flex-1 flex justify-center items-center bg-base-200">
+              <img src="./logo_talktime.png" alt="logo.png" />
+            </div>
+            <Form className=" flex-1 bg-base-100" onFinish={onFinish}>
+              <Row className="parent-holder">
+                <Row className="sub-parent-holder bg-base-100">
+                  <Col
+                    xs={24}
+                    md={10}
+                    className="form-holder bg-base-100 text-base-content"
+                  >
+                    <h1 className="form-header-style">Log in</h1>
+                    <SubHeading
+                      description="New to TalkTime ? "
+                      link="/register"
+                      link_description="Create an account"
+                    />
 
-              <Col xs={24} md={10} className="form-holder bg-base-100 text-base-content">
-                <h1 className="form-header-style">Log in</h1>
-                <SubHeading
-                  description="New to TalkTime ? "
-                  link="/register"
-                
-                  link_description="Create an account"
-                />
+                    <Form.Item className="w-100 m-0" name="email_id">
+                      <Input
+                        size="large"
+                        placeholder="Email ID"
+                        className="mbo-10 bg-base-200 text-base-content placeholder:!text-base-content border-none"
+                      />
+                    </Form.Item>
 
-                <Form.Item className="w-100 m-0" name="email_id">
-                  <Input
-                    size="large"
-                    placeholder="Email ID"
-                    className="mbo-10 bg-base-200 text-base-content placeholder:!text-base-content border-none"
-                  />
-                </Form.Item>
+                    <Form.Item className="w-100 m-0" name="password">
+                      <Input.Password
+                        size="large"
+                        placeholder="Password"
+                        className="mbo-10 bg-base-200 text-base-content  border-none"
+                        autoComplete="new-password"
+                        classNames={{
+                          input:
+                            "bg-base-200 text-base-content placeholder:!text-base-content",
+                        }}
+                      />
+                    </Form.Item>
 
-                <Form.Item className="w-100 m-0" name="password">
-                  <Input.Password
-                    size="large"
-                    placeholder="Password"
-                    className="mbo-10 bg-base-200 text-base-content  border-none"
-                    autoComplete="new-password"
-                    classNames={{input:'bg-base-200 text-base-content placeholder:!text-base-content'}}
-                  />
-                </Form.Item>
-
-                {error && <div className="input-error-style">{error}</div>}
-                <Button
-                  size="large"
-                  className="w-100 mt-20 mw-100 fs-12 fw-600 bg-primary hover:bg-primary-focus hover:!text-primary-content border-none text-primary-content "
-                  htmlType="submit"
-                  loading={loading}
-                >
-                  Log in
-                </Button>
-              </Col>
-            </Row>
-          </Row>
-        </Form>
-        </div>
-        
+                    {error && <div className="input-error-style">{error}</div>}
+                    <Button
+                      size="large"
+                      className="w-100 mt-20 mw-100 fs-12 fw-600 bg-primary hover:bg-primary-focus hover:!text-primary-content border-none text-primary-content "
+                      htmlType="submit"
+                      loading={loading}
+                    >
+                      Log in
+                    </Button>
+                  </Col>
+                </Row>
+              </Row>
+            </Form>
+          </div>
         </>
       )}
     </>

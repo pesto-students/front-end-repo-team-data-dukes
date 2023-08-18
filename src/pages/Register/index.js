@@ -20,7 +20,7 @@ const Register = () => {
 
   const [registerSuccess, setRegisterSuccess] = useState(null);
   const [data, setData] = useState(null);
-  const {currentTheme} = useContext(ThemeProvider);
+  const { currentTheme } = useContext(ThemeProvider);
   const navigate = useNavigate();
 
   const onRegisterSuccess = (response, request, data) => {
@@ -53,9 +53,7 @@ const Register = () => {
       setError(null);
       return;
     } else if (values["email_id"] && !EMAIL_REGEX.test(values["email_id"])) {
-      setError(
-        "Invalid Email ID ! ex : ( user@localhost | user@localhost.com )"
-      );
+      setError("Invalid Email ID ! ex : ( user@talktimeapp.com )");
       setMError(null);
       return;
     } else if (!values["password"] && values["email_id"]) {
@@ -85,95 +83,110 @@ const Register = () => {
       {showVerify && <Verify setShowVerify={setShowVerify} />}
       {!showVerify && (
         <div data-theme={currentTheme} className="flex h-full w-full">
-           <div className="flex-1 flex justify-center items-center bg-base-200">
-          <img src="./logo_talktime.png"  alt="logo.png"/>
-        </div>
-        <Form className="flex-1 bg-base-100" onFinish={onFinish}>
-          <Row className="parent-holder">
-            <Row className="sub-parent-holder bg-base-100">
-              <Col xs={24} md={10} className="form-holder bg-base-100 text-base-content">
-                {registerSuccess && (
-                  <Result
-                    style={{ paddingInline: 0 }}
-                    status="success"
-                    title={
-                      <h1 style={{ fontSize: "24px" }} className="text-base-content">
-                        Registered Successfully !
-                      </h1>
-                    }
-                    subTitle={
-                      <div className="fw-600 fs-12 text-base-content">
-                        <span >{`An account has been created using ${
-                          data.email_id ? data.email_id : data.mobile_no
-                        }`}</span>
-                        <br /> Click here to{" "}
-                        <Link to="/login" style={{ color: "#007bff" }}>
-                          Login
-                        </Link>
-                      </div>
-                    }
-                  />
-                )}
-
-                {!registerSuccess && (
-                  <>
-                    <h1 className="form-header-style">Create an account</h1>
-
-                    <SubHeading
-                      description="Already have an account ? "
-                      link="/login"
-                      link_description="Login"
+          <div className="flex-1 flex justify-center items-center bg-base-200">
+            <img src="./logo_talktime.png" alt="logo.png" />
+          </div>
+          <Form className="flex-1 bg-base-100" onFinish={onFinish}>
+            <Row className="parent-holder">
+              <Row className="sub-parent-holder bg-base-100">
+                <Col
+                  xs={24}
+                  md={10}
+                  className="form-holder bg-base-100 text-base-content"
+                >
+                  {registerSuccess && (
+                    <Result
+                      style={{ paddingInline: 0 }}
+                      status="success"
+                      title={
+                        <h1
+                          style={{ fontSize: "24px" }}
+                          className="text-base-content"
+                        >
+                          Registered Successfully !
+                        </h1>
+                      }
+                      subTitle={
+                        <div className="fw-600 fs-12 text-base-content">
+                          <span>{`An account has been created using ${
+                            data.email_id ? data.email_id : data.mobile_no
+                          }`}</span>
+                          <br /> Click here to{" "}
+                          <Link to="/login" style={{ color: "#007bff" }}>
+                            Login
+                          </Link>
+                        </div>
+                      }
                     />
-                    {mError && (
-                      <div className="input-error-style">{mError}</div>
-                    )}
+                  )}
 
-                    <Form.Item name="email_id" className="m-0 w-100">
-                      <Input
-                        size="large"
-                        placeholder="Email ID"
-                        className="mbo-10 bg-base-200 text-base-content placeholder:!text-base-content border-none"
-                        autoComplete="new-password"
+                  {!registerSuccess && (
+                    <>
+                      <h1 className="form-header-style">Create an account</h1>
+
+                      <SubHeading
+                        description="Already have an account ? "
+                        link="/login"
+                        link_description="Login"
                       />
-                    </Form.Item>
+                      {mError && (
+                        <div className="input-error-style">{mError}</div>
+                      )}
 
-                    <Form.Item name="password" className="m-0 w-100">
-                      <Input.Password
+                      <Form.Item name="email_id" className="m-0 w-100">
+                        <Input
+                          size="large"
+                          placeholder="Email ID"
+                          className="mbo-10 bg-base-200 text-base-content placeholder:!text-base-content border-none"
+                          autoComplete="new-password"
+                        />
+                      </Form.Item>
+
+                      <Form.Item name="password" className="m-0 w-100">
+                        <Input.Password
+                          size="large"
+                          placeholder="Password"
+                          autoComplete="new-password"
+                          className="mbo-10 bg-base-200 text-base-content placeholder:!text-base-content border-none"
+                          classNames={{
+                            input:
+                              "bg-base-200 text-base-content placeholder:!text-base-content",
+                          }}
+                        />
+                      </Form.Item>
+
+                      <Form.Item name="confirm_password" className="m-0 w-100">
+                        <Input.Password
+                          size="large"
+                          autoComplete="new-password"
+                          placeholder="Confirm Password"
+                          className="mbo-10 bg-base-200 text-secondary-content  border-none"
+                          classNames={{
+                            input:
+                              "bg-base-200 text-base-content placeholder:!text-base-content",
+                          }}
+                        />
+                      </Form.Item>
+
+                      {error && (
+                        <div className="input-error-style">{error}</div>
+                      )}
+
+                      <Button
+                        type="primary"
                         size="large"
-                        placeholder="Password"
-                        autoComplete="new-password"
-                        className="mbo-10 bg-base-200 text-base-content placeholder:!text-base-content border-none"
-                        classNames={{input:'bg-base-200 text-base-content placeholder:!text-base-content'}}
-                      />
-                    </Form.Item>
-
-                    <Form.Item name="confirm_password" className="m-0 w-100">
-                      <Input.Password
-                        size="large"
-                        autoComplete="new-password"
-                        placeholder="Confirm Password"
-                        className="mbo-10 bg-base-200 text-secondary-content  border-none"
-                        classNames={{input:'bg-base-200 text-base-content placeholder:!text-base-content'}}
-                      />
-                    </Form.Item>
-
-                    {error && <div className="input-error-style">{error}</div>}
-
-                    <Button
-                      type="primary"
-                      size="large"
-                      className="w-100 mt-20 mw-100 fs-12 fw-600 bg-primary hover:bg-primary-focus hover:!text-primary-content border-none text-primary-content"
-                      htmlType="submit"
-                      loading={loading}
-                    >
-                      Register
-                    </Button>
-                  </>
-                )}
-              </Col>
+                        className="w-100 mt-20 mw-100 fs-12 fw-600 bg-primary hover:bg-primary-focus hover:!text-primary-content border-none text-primary-content"
+                        htmlType="submit"
+                        loading={loading}
+                      >
+                        Register
+                      </Button>
+                    </>
+                  )}
+                </Col>
+              </Row>
             </Row>
-          </Row>
-        </Form>
+          </Form>
         </div>
       )}
     </>

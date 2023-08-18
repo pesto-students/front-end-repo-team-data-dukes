@@ -7,7 +7,11 @@ import { IoCloseSharp, IoEllipsisVertical } from "react-icons/io5";
 
 import "./index.css";
 import ChatSideUserOption from "../ChatSideUserOption";
-import { capitalizeFirstLetter, getAvatarImg, getUserName } from "../../utils/common";
+import {
+  capitalizeFirstLetter,
+  getAvatarImg,
+  getUserName,
+} from "../../utils/common";
 import StatusChanger from "../StatusChanger";
 import useEventHandler from "../../hooks/useEventHandler";
 
@@ -46,19 +50,23 @@ const ChatSideHeader = ({ manager }) => {
             )}
             {!manager.user["avatar_url"] && (
               <div className="cursor-pointer flex justify-center align-center profile-img-style !bg-primary text-base-content-focus">
-                <span className="fw-800 profile-txt-style ">{getAvatarImg(manager.user)}</span>
+                <span className="fw-800 profile-txt-style ">
+                  {getAvatarImg(manager.user)}
+                </span>
               </div>
             )}
           </div>
           <div className="h-100 flex align-start flex-column flex-1">
-            <div className="fw-600 cursor-pointer fs-14 text-base-content" style={{ marginLeft: "-1px" }}>
+            <div
+              className="fw-600 cursor-pointer fs-14 text-base-content"
+              style={{ marginLeft: "-1px" }}
+            >
               {getUserName(manager.user)}
             </div>
-            <div className="flex align-center fs-10" style={{ marginTop: "3px" }}>
-             {/* TODO: aaply app logo here */}
-              {/* <StatusChanger /> */}
-              {/* <div className="flex fw-600">veer@localhost</div> */}
-            </div>
+            <div
+              className="flex align-center fs-10"
+              style={{ marginTop: "3px" }}
+            ></div>
           </div>
         </div>
       </Row>
