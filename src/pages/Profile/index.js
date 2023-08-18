@@ -122,19 +122,19 @@ const Profile = ({ manager, AuthorizeUI, ResetUI }) => {
   return (
     <>
       <div className="flex h-screen w-screen">
-        <div className="flex-1 flex justify-center items-center bg-slate-800">
+        <div className="flex-1 flex justify-center items-center bg-base-300">
           <img
             src="./logo_talktime.png"
             className="text-green-400"
             alt="logo.png"
           />
         </div>
-        <Form className="flex-1" onFinish={onFinish} form={form}>
+        <Form className="flex-1 bg-base-100" onFinish={onFinish} form={form}>
           <Row className="parent-holder">
             <Row className="sub-parent-holder">
-              <Col xs={24} md={10} className="form-holder">
+              <Col xs={26} md={10} className="form-holder bg-base-100">
                 <div
-                  className="fs-12 w-100 fw-600 cursor-pointer color-danger flex align-center justify-end"
+                  className="fs-12 w-100 fw-600 bg-base-100 cursor-pointer color-danger flex align-center justify-end"
                   onClick={() => {
                     ResetUI();
                   }}
@@ -142,9 +142,9 @@ const Profile = ({ manager, AuthorizeUI, ResetUI }) => {
                   Logout{" "}
                   <TbLogout style={{ marginLeft: "5px", marginTop: "1px" }} />
                 </div>
-                <h1 className="form-header-style">Almost There !</h1>
+                <h1 className="form-header-style text-base-content">Almost There </h1>
 
-                <div className="desc-style grey">
+                <div className="desc-style text-base-content">
                   Please complete your profile to proceed.
                 </div>
 
@@ -153,9 +153,9 @@ const Profile = ({ manager, AuthorizeUI, ResetUI }) => {
                   onChange={handleChange}
                   showUploadList={false}
                   customRequest={() => {}}
-                  className="w-100 flex justify-center"
+                  className="w-100 flex justify-center bg-base-100 "
                 >
-                  <div className="img-wrapper">
+                  <div className="img-wrapper bg-base-100">
                     {image && (
                       <img
                         src={image}
@@ -164,11 +164,12 @@ const Profile = ({ manager, AuthorizeUI, ResetUI }) => {
                           height: "100%",
                           objectFit: "cover",
                         }}
+                        className="!text-base-content"
                       />
                     )}
 
                     <div
-                      className="flex justify-center align-center"
+                      className="flex justify-center align-center hover:!text-base-200"
                       style={{
                         backgroundColor: "whitesmoke",
                         width: "100%",
@@ -176,12 +177,13 @@ const Profile = ({ manager, AuthorizeUI, ResetUI }) => {
                       }}
                     >
                       <AiOutlineUser
-                        size={70}
+                        size={60}
                         style={{ marginTop: "-4px", color: "grey" }}
+                        className="bg-base-100"
                       />
                     </div>
                     <div className="text-overlay">
-                      <MdModeEditOutline size={17} />
+                      <MdModeEditOutline size={17} className="text-base-content"/>
                     </div>
                   </div>
                 </Upload>
@@ -198,6 +200,8 @@ const Profile = ({ manager, AuthorizeUI, ResetUI }) => {
                     <Input
                       size="large"
                       placeholder="First Name"
+                      className="bg-base-200 text-base-content placeholder:!text-base-content border-none"
+                      classNames={{input:'bg-base-200 text-base-content placeholder:!text-base-content border-none'}}
                       style={{ marginBottom: "10px" }}
                     />
                   </Form.Item>
@@ -206,6 +210,9 @@ const Profile = ({ manager, AuthorizeUI, ResetUI }) => {
                     <Input
                       size="large"
                       placeholder="Last Name"
+                      className="bg-base-200 text-base-content placeholder:!text-base-content border-none"
+                      classNames={{input:'bg-base-200 text-base-content placeholder:!text-base-content border-none'}}
+                     
                       style={{ marginBottom: "10px" }}
                     />
                   </Form.Item>
@@ -215,8 +222,9 @@ const Profile = ({ manager, AuthorizeUI, ResetUI }) => {
                   <Input
                     size="large"
                     placeholder="Email ID"
+                    className="mbo-10 bg-base-200 text-base-content placeholder:!text-base-content border-none"
+                    classNames={{input:'bg-base-200 !text-base-content placeholder:!text-base-content border-none'}}
                     disabled={emailDisabled}
-                    className="mbo-10"
                   />
                 </Form.Item>
 
@@ -225,7 +233,7 @@ const Profile = ({ manager, AuthorizeUI, ResetUI }) => {
                 <Button
                   type="primary"
                   size="large"
-                  className="w-100 mt-20 fs-12 fw-600 bg-blue-600"
+                  className="w-100 mt-20 fs-12 fw-600 bg-primary hover:!bg-primary-focus hover:!text-primary-content border-none text-primary-content "
                   htmlType="submit"
                   loading={profileSubmitBtnLoading}
                 >

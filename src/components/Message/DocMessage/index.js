@@ -29,28 +29,27 @@ const DocMessage = ({ from, datetime, content, receipt, type, contact, manager, 
     <div
       style={{
         display: "flex",
-        backgroundColor: "white",
         paddingBlock: "2px",
         overflowY: "scroll",
         overflowX: "hidden",
         flexDirection: "column",
         alignItems: from === manager.user?.jid ? "flex-end" : "flex-start",
       }}
+      className="bg-base-100"
     >
       <div
         style={{
-          backgroundColor: from === manager.user?.jid ? "#007bff" : "#555555",
           fontWeight: 500,
           borderRadius: "13px",
           fontSize: "12px",
           width: "fit-content",
           padding: "10px",
-          color: "#fff",
           display: "flex",
           position: "relative",
           minWidth: "240px",
           flexDirection: "column",
         }}
+        className="text-white bg-primary"
       >
         {from !== manager.user?.jid && type === "groupchat" && (
           <span style={{ textAlign: "start", fontSize: "9px" }}>{`~ ${messageBy}`}</span>
