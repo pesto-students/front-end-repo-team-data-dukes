@@ -15,7 +15,7 @@ const ChatSideUserOption = () => {
       >
         <Button
           className="fw-600 fs-12 w-100 bg-primary hover:bg-primary-focus hover:!text-primary-content border-none text-primary-content"
-          style={{ textAlign: "start", border: 0, boxShadow: "none" }}
+          style={{ textAlign: "center", border: 0, boxShadow: "none" }}
           type="default"
           size={width > 800 ? "medium" : "large"}
           onClick={() => {
@@ -26,8 +26,8 @@ const ChatSideUserOption = () => {
         </Button>
       </div>
       <Button
-          className="fw-600 fs-12 w-100 mb-10 bg-primary hover:bg-primary-focus hover:!text-primary-content border-none text-primary-content"
-          style={{ textAlign: "start", border: 0, boxShadow: "none" }}
+          className="fw-600 fs-12 w-100 mb-10 bg-primary hover:bg-primary-focus hover:!text-primary-content border-none  text-primary-content"
+          style={{ textAlign: "center", border: 0, boxShadow: "none" }}
           type="default"
           size={width > 800 ? "medium" : "large"}
           onClick={() => setCurrentTheme(getRandomTheme())}

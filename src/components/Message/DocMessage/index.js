@@ -3,7 +3,6 @@ import { RiCheckDoubleFill, RiCheckFill } from "react-icons/ri";
 import { FiDownload } from "react-icons/fi";
 import { TbFileDescription } from "react-icons/tb";
 import {
-  capitalizeFirstLetter,
   download,
   formatBytes,
   formatTime,
