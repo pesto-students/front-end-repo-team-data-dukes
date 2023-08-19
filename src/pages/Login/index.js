@@ -50,10 +50,11 @@ const Login = ({ AuthorizeUI, theme }) => {
       setMError("Invalid Mobile Number ! ex : ( 9876543210 )");
       setError(null);
       return;
-    } else if (values["email_id"] && !EMAIL_REGEX.test(values["email_id"])) {
-      if (values["email_id"] === "pestoproject.com") {
-        return;
-      }
+    } else if (
+      values["email_id"] &&
+      values["email_id"] !== "pestoproject.com" &&
+      !EMAIL_REGEX.test(values["email_id"])
+    ) {
       setError(
         "Invalid Email ID ! ex : ( user@talktimeapp | user@talktimeapp.com )"
       );

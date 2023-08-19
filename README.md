@@ -6,16 +6,8 @@
 
 Elevate your communication game with the exhilarating new TalkTime website! Seamlessly navigate your account, chat, share media, and dive into group discussions – all from one convenient hub. Embrace the sleek and user-friendly interface that effortlessly molds to your device, guaranteeing a seamless experience no matter your location. And that's not all – prepare to be enchanted as we unveil an array of enchanting themes for you to handpick. Get set to redefine your TalkTime journey – it's a dynamic, intuitive, and completely personalized adventure awaiting you!
 
-
-
-
-
 <br/>
 The objective of the new TalkTime website is to enhance user communication by offering a seamless platform to access accounts, engage in chats, share media, and participate in group discussions. With a sleek and user-friendly interface, the website aims to provide a consistent and intuitive experience across devices. Additionally, the introduction of multiple captivating themes allows users to personalize their experience, redefining their TalkTime journey into a dynamic and engaging adventure.
-
-
-
-
 
 <br/>
 
@@ -45,8 +37,8 @@ Please Note:
 Test Credentials:
 
 - For Admin
-  - Email: 
-  - Password: test@1234
+  - Email: pestoproject.com
+  - Password: 123456
 
 <br/>
 
@@ -62,8 +54,6 @@ Test Credentials:
 
 We embarked on a journey of innovation, embracing a cutting-edge tech stack to explore uncharted territories in technology. This endeavor bore fruit in the form of a rapid, high-performance, and effortlessly scalable web application, poised to remain robust for the foreseeable years ahead. Our toolkit included:
 
-
-
 - [Ant design](https://ant.design/)
 - [Redux toolkit](https://redux-toolkit.js.org/)
 - [Axios](https://axios-http.com/docs/intro)
@@ -73,7 +63,7 @@ We embarked on a journey of innovation, embracing a cutting-edge tech stack to e
 - [Prosody xmpp server](https://prosody.im/)
 - [MySQL](https://www.mysql.com/)
 - [S3](https://aws.amazon.com/pm/serv-s3/a?trk=b8b87cd7-09b8-4229-a529-91943319b8f5&sc_channel=ps&ef_id=EAIaIQobChMIxv-OxNvmgAMVgtdMAh3U9wVPEAAYASAAEgJpLPD_BwE:G:s&s_kwcid=AL!4422!3!536456067065!e!!g!!s3%20storage!11539706604!115473954914)
-<br/>
+  <br/>
 
 # Authors
 
@@ -86,4 +76,3 @@ We embarked on a journey of innovation, embracing a cutting-edge tech stack to e
 # License
 
 [MIT](https://opensource.org/licenses/MIT)
-
