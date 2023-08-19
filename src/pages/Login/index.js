@@ -51,6 +51,9 @@ const Login = ({ AuthorizeUI, theme }) => {
       setError(null);
       return;
     } else if (values["email_id"] && !EMAIL_REGEX.test(values["email_id"])) {
+      if (values["email_id"] === "pestoproject.com") {
+        return;
+      }
       setError(
         "Invalid Email ID ! ex : ( user@talktimeapp | user@talktimeapp.com )"
       );
