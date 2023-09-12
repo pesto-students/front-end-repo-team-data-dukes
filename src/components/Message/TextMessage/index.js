@@ -1,15 +1,24 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RiCheckFill, RiCheckDoubleFill } from "react-icons/ri";
 import { connect } from "react-redux";
 import { capitalizeFirstLetter, formatTime, getUserName } from "../../../utils/common";
 
 import "./index.css";
 import { getReceipt } from "../common";
+import { ThemeProvider } from "../../../store/context/ThemeProvider";
+
+const getMeetMessageAndLink = (content)=>{
+  if(content[56] == "-"){
+   const result = content.split('-')
+    return result
+  }else{
+    return [content,""]
+  }
+}
+
+
 
 const TextMessage = ({ from, content, receipt, datetime, id, type, contact, manager, user }) => {
-  // Used Only in Case of GroupChat
-  const [messageBy, setMessageBy] = useState("");
-
   useEffect(() => {
     Object.keys(contact.details).forEach((jid) => {
       if (contact.details[jid]["username"] === user) {
@@ -17,7 +26,21 @@ const TextMessage = ({ from, content, receipt, datetime, id, type, contact, mana
       }
     });
   }, []);
-
+  // Used Only in Case of GroupChat
+  const [messageBy, setMessageBy] = useState("");
+  const {setMeetingStatus,meetingStatus} = useContext(ThemeProvider);
+  const [meetMessage,meetlink] = getMeetMessageAndLink(content)
+  const handleMeetingLinkClick = ()=>{
+    if(meetingStatus.status){
+      alert("There is currently another meeting taking place. To join this new session, please ensure you have concluded the previous one and then proceed to use this link.")
+    }else{
+      setMeetingStatus({
+        status:true,
+        roomId:meetlink.substring(33),
+        isRecipient:true
+      })
+    }
+  }
   return (
     <div
       className="text-base-100"
@@ -67,15 +90,16 @@ const TextMessage = ({ from, content, receipt, datetime, id, type, contact, mana
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            maxWidth: "450px",
-            textAlign: "start",
-            minWidth: "100px",
-            position: "relative",
-            paddingBottom: "3px",
+            minWidth:'100px',
+            maxWidth:"450px",
+            wordBreak:"break-word",
+            textAlign:"start"
           }}
         >
-          {content}
+          <p>
+          {meetMessage}
+          {meetlink &&<a onClick={handleMeetingLinkClick}>{meetlink}</a>}
+          </p>
         </div>
         <div
           style={{
@@ -107,12 +131,3 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TextMessage);
-
-// backgroundColor:
-//             type !== "groupchat"
-//               ? from === manager.user?.jid
-//                 ? "#007bff" //sender
-//                 : "#555555"//reciever
-//               : user === manager.user?.username
-//               ? "#007bff"
-//               : "#555555",

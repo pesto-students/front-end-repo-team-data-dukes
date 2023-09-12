@@ -21,7 +21,7 @@ const GroupOptionDrawer = ({ connection, manager, contact, setFocus }) => {
   const [showSubjectModal, setShowSubjectModal] = useState(false);
   const [showInviteDrawer, setShowInviteDrawer] = useState(false);
   const [toKickParticipants, setToKickParticipants] = useState([]);
-  const {currentTheme} = useContext(ThemeProvider);
+  const { currentTheme } = useContext(ThemeProvider);
   const onShowDrawer = ({ detail }) => {
     setVisible(true);
   };
@@ -49,8 +49,15 @@ const GroupOptionDrawer = ({ connection, manager, contact, setFocus }) => {
             detail: { jid: jid, affiliation: "none", room: contact.focus },
           })
         );
-        const removeUserMessage = `${getUserName(manager.user)} Removed ${getUserName(contact.details[jid])}`;
-        connection.message.send(contact.focus, "groupchat", "info", removeUserMessage);
+        const removeUserMessage = `${getUserName(
+          manager.user
+        )} Removed ${getUserName(contact.details[jid])}`;
+        connection.message.send(
+          contact.focus,
+          "groupchat",
+          "info",
+          removeUserMessage
+        );
         setToKickParticipants((prev) => prev.filter((d) => d !== jid));
       },
       (et) => {
@@ -64,7 +71,7 @@ const GroupOptionDrawer = ({ connection, manager, contact, setFocus }) => {
   const participantContent = (
     <>
       <div
-      data-theme={currentTheme}
+        data-theme={currentTheme}
         className="flex align-center w-100 bg-transparent"
         style={{
           justifyContent: "space-between",
@@ -74,41 +81,71 @@ const GroupOptionDrawer = ({ connection, manager, contact, setFocus }) => {
       >
         <div
           className="w-100 ml-5 flex align-center"
-          style={{ fontSize: "12px", fontWeight: 600, color: "grey", justifyContent: "space-between" }}
+          style={{
+            fontSize: "12px",
+            fontWeight: 600,
+            color: "grey",
+            justifyContent: "space-between",
+          }}
         >
-          <div>{`${contact.details[contact.focus]?.participants?.length}`} Participant's</div>
+          <div>
+            {`${contact.details[contact.focus]?.participants?.length}`}{" "}
+            Participants
+          </div>
           <div className="flex align-center cursor-pointer">
             {contact.details[contact.focus]?.isCurrentUserOwner && (
-              <BiPlus size={20} className="text-base-content" onClick={() => setShowInviteDrawer(true)} />
+              <BiPlus
+                size={20}
+                className="text-base-content"
+                onClick={() => setShowInviteDrawer(true)}
+              />
             )}
           </div>
         </div>
         <Divider style={{ marginBlock: "12px" }} />
-        <div className="w-100" style={{ maxHeight: "100%", overflowY: "scroll" }}>
+        <div
+          className="w-100"
+          style={{ maxHeight: "100%", overflowY: "scroll" }}
+        >
           {contact.details[contact.focus]?.participants?.map((item) => {
             return (
-              <div key={item["jid"]} className="flex justify-between p-10" style={{ width: "-webkit-fill-available" }}>
+              <div
+                key={item["jid"]}
+                className="flex justify-between p-10"
+                style={{ width: "-webkit-fill-available" }}
+              >
                 <div className="flex align-center ">
                   <FaUser size={16} className="text-base-content" />
-                  <div style={{ fontSize: "12px", marginLeft: "10px", fontWeight: 600 }}>
-                    {`${manager.user?.jid === item["jid"] ? "You" : getUserName(contact.details[item["jid"]])}`}
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      marginLeft: "10px",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {`${
+                      manager.user?.jid === item["jid"]
+                        ? "You"
+                        : getUserName(contact.details[item["jid"]])
+                    }`}
                   </div>
                 </div>
-                {contact.details[contact.focus]?.isCurrentUserOwner && item["jid"] !== manager.user?.jid && (
-                  <>
-                    {toKickParticipants.includes(item["jid"]) ? (
-                      <LoadingOutlined style={{ fontSize: 20 }} spin />
-                    ) : (
-                      <HiOutlineLogout
-                        className="cursor-pointer"
-                        size={18}
-                        onClick={() => {
-                          kickParticipants(item["jid"]);
-                        }}
-                      />
-                    )}
-                  </>
-                )}
+                {contact.details[contact.focus]?.isCurrentUserOwner &&
+                  item["jid"] !== manager.user?.jid && (
+                    <>
+                      {toKickParticipants.includes(item["jid"]) ? (
+                        <LoadingOutlined style={{ fontSize: 20 }} spin />
+                      ) : (
+                        <HiOutlineLogout
+                          className="cursor-pointer"
+                          size={18}
+                          onClick={() => {
+                            kickParticipants(item["jid"]);
+                          }}
+                        />
+                      )}
+                    </>
+                  )}
               </div>
             );
           })}
@@ -126,7 +163,11 @@ const GroupOptionDrawer = ({ connection, manager, contact, setFocus }) => {
       setLoading(false);
       setShowSubjectModal(false);
       if (status !== "SUCCESS") {
-        showNotificationMessage("error", "Error Updating Group Name !", "Please try again...!");
+        showNotificationMessage(
+          "error",
+          "Error Updating Group Name !",
+          "Please try again...!"
+        );
       }
     });
 
@@ -152,7 +193,10 @@ const GroupOptionDrawer = ({ connection, manager, contact, setFocus }) => {
           style={{ borderRadius: "10px", padding: "10px", marginBlock: "20px" }}
           suffix={<FcBookmark size={16} color="#007bff" />}
         />
-        <div data-theme={currentTheme} className="flex justify-end bg-transparent">
+        <div
+          data-theme={currentTheme}
+          className="flex justify-end bg-transparent"
+        >
           <Button
             className="fw-600 fs-12 bg-primary hover:bg-primary-focus hover:!text-primary-content border-none text-primary-content"
             size="large"
@@ -162,7 +206,9 @@ const GroupOptionDrawer = ({ connection, manager, contact, setFocus }) => {
               if (groupSubject.trim() !== "") {
                 setLoading(true);
                 window.dispatchEvent(
-                  new CustomEvent("update-group-subject", { detail: { subject: groupSubject, room: contact.focus } })
+                  new CustomEvent("update-group-subject", {
+                    detail: { subject: groupSubject, room: contact.focus },
+                  })
                 );
               }
             }}
@@ -192,7 +238,12 @@ const GroupOptionDrawer = ({ connection, manager, contact, setFocus }) => {
     } else {
       //Leave Room
       const inviteMessage = `${getUserName(manager.user)} Left`;
-      connection.message.send(contact.focus, "groupchat", "info", inviteMessage);
+      connection.message.send(
+        contact.focus,
+        "groupchat",
+        "info",
+        inviteMessage
+      );
       connection.muc.leave(contact.focus, manager.user?.username, (s) => {
         removeFromRoster(connection, contact.focus);
         setFocus(null);
@@ -202,24 +253,23 @@ const GroupOptionDrawer = ({ connection, manager, contact, setFocus }) => {
     }
   };
 
-  const themeColors={
-    cupcake:'rgb(239, 234, 230) ',
-    dark:'rgb(25, 30, 36) ',
-    valentine:'rgb(230, 188, 218) ',
-    light:'rgb(229, 231, 235) ',
-    synthwave:'rgb(14, 9, 32) ',
-    corporate:'rgb(237, 237, 237) ',
-    coffee:'rgb(12, 8, 12) ',
-    winter:'rgb(240, 246, 255) ',
-    retro:'rgb(219, 201, 154) '
-  }
-
+  const themeColors = {
+    cupcake: "rgb(239, 234, 230) ",
+    dark: "rgb(25, 30, 36) ",
+    valentine: "rgb(230, 188, 218) ",
+    light: "rgb(229, 231, 235) ",
+    synthwave: "rgb(14, 9, 32) ",
+    corporate: "rgb(237, 237, 237) ",
+    coffee: "rgb(12, 8, 12) ",
+    winter: "rgb(240, 246, 255) ",
+    retro: "rgb(219, 201, 154) ",
+  };
 
   return (
     <React.Fragment>
       <Drawer
         width={width < 700 ? width : 400}
-        style={{backgroundColor:themeColors[currentTheme]}}
+        style={{ backgroundColor: themeColors[currentTheme] }}
         open={visible}
         closeIcon={<IoCloseSharp size={22} className="!text-red-500" />}
         onClose={onReset}
@@ -236,16 +286,23 @@ const GroupOptionDrawer = ({ connection, manager, contact, setFocus }) => {
               paddingInline: "10px",
             }}
           >
-            {"Group Option's"}
+            {"Group Settings"}
           </h1>
         }
       >
-        <div data-theme={currentTheme} className="flex h-100 bg-transparent" style={{ flexDirection: "column", justifyContent: "space-between" }}>
+        <div
+          data-theme={currentTheme}
+          className="flex h-100 bg-transparent"
+          style={{ flexDirection: "column", justifyContent: "space-between" }}
+        >
           <div className="flex">{participantContent}</div>
           <div className="flex" style={{ flexDirection: "column" }}>
-            <div className="w-100 ml-5 text-base-content" style={{ fontSize: "12px", fontWeight: 600, color: "grey" }}>
+            {/* <div
+              className="w-100 ml-5 text-base-content"
+              style={{ fontSize: "12px", fontWeight: 600, color: "grey" }}
+            >
               Room Setting's
-            </div>
+            </div> */}
             <Divider style={{ marginBlock: "12px" }} />
             <Button
               className="fw-600 fs-12 w-100 bg-primary hover:bg-primary-focus hover:!text-primary-content border-none text-primary-content"
@@ -253,7 +310,8 @@ const GroupOptionDrawer = ({ connection, manager, contact, setFocus }) => {
               style={{
                 border: "none",
                 marginBlock: "15px",
-                textAlign: "start",
+                textAlign: "center",
+
                 boxShadow: "none",
               }}
               onClick={() => {
@@ -263,8 +321,16 @@ const GroupOptionDrawer = ({ connection, manager, contact, setFocus }) => {
             >
               Change Subject
             </Button>
-            <Button className="fw-600 fs-12 w-100" type="primary" danger size="large" onClick={onDLBtnClick}>
-              {contact.details[contact.focus]?.isCurrentUserOwner ? "Delete Room" : "Leave Room"}
+            <Button
+              className="fw-600 fs-12 w-100"
+              type="primary"
+              danger
+              size="large"
+              onClick={onDLBtnClick}
+            >
+              {contact.details[contact.focus]?.isCurrentUserOwner
+                ? "Delete Room"
+                : "Leave Room"}
             </Button>
           </div>
         </div>

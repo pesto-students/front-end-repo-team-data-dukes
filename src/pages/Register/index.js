@@ -162,7 +162,7 @@ const Register = () => {
                     <Button
                       type="primary"
                       size="large"
-                      className="w-100 mt-20 mw-100 fs-12 fw-600 bg-primary hover:bg-primary-focus hover:!text-primary-content border-none text-primary-content"
+                      className="w-100 mt-20 mw-100 fs-12 fw-600 bg-primary hover:!bg-primary-focus hover:!text-primary-content border-none text-primary-content"
                       htmlType="submit"
                       loading={loading}
                     >

@@ -26,7 +26,7 @@ const ChatSideHeader = ({ manager }) => {
     setPopUpUserVisible(false);
     setShowBottomDrawer(false);
   };
-
+  
   useEventHandler("show-create-group-drawer", resetPopUp);
   useEventHandler("show-create-contact-drawer", resetPopUp);
 

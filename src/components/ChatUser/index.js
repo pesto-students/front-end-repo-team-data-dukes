@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import { Row } from "antd";
+import { Row, message } from "antd";
 import { MdGroups } from "react-icons/md";
 import { connect } from "react-redux";
 import { GoPrimitiveDot } from "react-icons/go";
@@ -8,6 +8,10 @@ import "./index.css";
 import { capitalizeFirstLetter, formatTime, isGroup } from "../../utils/common";
 
 const ChatUser = ({ jid, contact, manager }) => {
+  const fileteredMessages = contact.message[jid]?.filter((message)=>message.datetime !== null)
+  console.log("filtereed",fileteredMessages?.at(-1))
+  console.log("ChatUser",contact.message[jid]);
+  console.log("chatuser",contact.message[jid]);
   const AvatarViewSelector = () => {
     return (
       <div className="flex" style={{ marginTop: "4.33px" }}>
@@ -101,7 +105,7 @@ const ChatUser = ({ jid, contact, manager }) => {
         <AvatarViewSelector />
         <ContentViewSelector />
         <div className="flex h-100 flex-column">
-          <div className="fs-10 grey">{formatTime(contact.message[jid]?.at(-1).datetime)}</div>
+          <div className="fs-10 grey">{formatTime(fileteredMessages?.at(-1)?.datetime)}</div>
           {contact.message[jid]?.at(-1)?.receipt !== 2 &&
             contact.message[jid]?.at(-1)["from"] !== manager.user?.jid &&
             !isGroup(jid) && (

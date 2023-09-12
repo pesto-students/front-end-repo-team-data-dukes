@@ -21,7 +21,8 @@ const ChatWindow = ({ contact }) => {
   const onQueryHistoryMessageLoaded = () => {
     setLoadMore(false);
   };
-
+  
+ 
   const execute_scroll = () => {
     setTimeout(() => {
       const classes = document.getElementsByClassName("chat-window-footer");
@@ -72,6 +73,7 @@ const ChatWindow = ({ contact }) => {
           display: "flex",
         }}
       >
+       
         <InfiniteScroll
           className="infi-scroll !bg-base-100"
           dataLength={contact.message[contact.focus]?.length ? contact.message[contact.focus]?.length : 0}
@@ -160,8 +162,8 @@ const ChatWindow = ({ contact }) => {
 };
 
 function mapStateToProps(state) {
-  const { contact } = state;
-  return { contact };
+  const { contact,manager } = state;
+  return { contact ,manager};
 }
 
 const mapDispatchToProps = {};

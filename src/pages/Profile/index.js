@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Form, Button, Col, Divider, Input, Row, Upload } from "antd";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
@@ -14,6 +14,7 @@ import { showNotification } from "../../utils/common";
 import { TbLogout } from "react-icons/tb";
 import { AuthorizeUI, ResetUI } from "../../store/actions/managerAction";
 import { updateUserProfile } from "../../api/fetch";
+import { ThemeProvider } from "../../store/context/ThemeProvider";
 
 const Profile = ({
   manager,
@@ -27,7 +28,7 @@ const Profile = ({
   const [emailDisabled, setEmailDisabled] = useState(false);
   const [mobileDisabled, setMobileDisabled] = useState(false);
   const [profileSubmitBtnLoading, setProfileSubmitBtnLoading] = useState(false);
-
+  const {currentTheme} = useContext(ThemeProvider);
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
@@ -122,16 +123,16 @@ const Profile = ({
 
   return (
     <>
-      <div className="flex h-screen w-screen">
+      <div data-theme={currentTheme} className="flex h-screen w-screen">
       <div className="flex-1 flex justify-center items-center bg-slate-800">
           <img src="./logo_talktime.png" className="text-green-400" alt="logo.png"/>
         </div>
       <Form className="flex-1" onFinish={onFinish} form={form}>
-        <Row className="parent-holder">
-          <Row className="sub-parent-holder">
+        <Row className="parent-holder ">
+          <Row className="sub-parent-holder bg-base-100">
             
 
-            <Col xs={24} md={10} className="form-holder">
+            <Col xs={24} md={10} className="form-holder ">
               <div
                 className="fs-12 w-100 fw-600 cursor-pointer color-danger flex align-center justify-end"
                 onClick={() => {
@@ -141,7 +142,7 @@ const Profile = ({
                 Logout{" "}
                 <TbLogout style={{ marginLeft: "5px", marginTop: "1px" }} />
               </div>
-              <h1 className="form-header-style">Almost There !</h1>
+              <h1 className="form-header-style text-base-content">Almost There !</h1>
 
               <div className="desc-style grey">
                 Please complete your profile to proceed.
@@ -154,8 +155,8 @@ const Profile = ({
                 customRequest={() => {}}
                 className="w-100 flex justify-center"
               >
-                <div className="img-wrapper">
-                  {image && (
+                <div className="relative rounded-full w-24 h-24 overflow-hidden">
+                  {image ? (
                     <img
                       src={image}
                       style={{
@@ -164,24 +165,27 @@ const Profile = ({
                         objectFit: "cover",
                       }}
                     />
-                  )}
-
-                  <div
+                  ):
+                  (<>
+                       <div
                     className="flex justify-center align-center"
                     style={{
-                      backgroundColor: "whitesmoke",
                       width: "100%",
                       height: "100%",
                     }}
                   >
                     <AiOutlineUser
-                      size={70}
+                      size={60}
                       style={{ marginTop: "-4px", color: "grey" }}
                     />
                   </div>
                   <div className="text-overlay">
                     <MdModeEditOutline size={17} />
                   </div>
+                  </>)
+                  }
+
+             
                 </div>
               </Upload>
 
@@ -198,6 +202,8 @@ const Profile = ({
                     size="large"
                     placeholder="First Name"
                     style={{ marginBottom: "10px" }}
+                    className="mbo-10 bg-base-200 text-base-content placeholder:!text-base-content border-none"
+                    classNames={{input:'bg-base-200 text-base-content placeholder:!text-base-content'}}
                   />
                 </Form.Item>
 
@@ -206,6 +212,8 @@ const Profile = ({
                     size="large"
                     placeholder="Last Name"
                     style={{ marginBottom: "10px" }}
+                    className="mbo-10 bg-base-200 text-base-content placeholder:!text-base-content border-none"
+                    classNames={{input:'bg-base-200 text-base-content placeholder:!text-base-content'}}
                   />
                 </Form.Item>
               </div>
@@ -215,7 +223,8 @@ const Profile = ({
                   size="large"
                   placeholder="Email ID"
                   disabled={emailDisabled}
-                  className="mbo-10"
+                  className="mbo-10 bg-base-200 text-base-content border-none"
+                  classNames={{input:'bg-base-200 !text-base-content placeholder:!text-base-content'}}
                 />
               </Form.Item>
 
@@ -225,7 +234,7 @@ const Profile = ({
               <Button
                 type="primary"
                 size="large"
-                className="w-100 mt-20 fs-12 fw-600 bg-blue-600"
+                className="w-100 mt-20 mw-100 fs-12 fw-600 bg-primary hover:!bg-primary-focus hover:!text-primary-content border-none text-primary-content "
                 htmlType="submit"
                 loading={profileSubmitBtnLoading}
               >

@@ -10,13 +10,14 @@ import { MdGroups } from "react-icons/md";
 import "./index.css";
 import { setFocus } from "../../store/actions/contactAction";
 import { capitalizeFirstLetter, getAvatarImg, getUserName, isGroup } from "../../utils/common";
-import { Link } from "react-router-dom";
+import { ResizablePIP } from "resizable-pip";
+import { JaaSMeeting } from "@jitsi/react-sdk";
 import { ThemeProvider } from "../../store/context/ThemeProvider";
-
-const ChatHeader = ({ contact, setFocus }) => {
+import { defaultMeetingRoom, meetingAppId } from "../../utils/constants";
+const ChatHeader = ({ contact, setFocus,manager,connection }) => {
   const [showBackArrow, setShowBackArrow] = useState(null);
   const { width } = useWindowDimensions();
-  const {currentTheme} = useContext(ThemeProvider);
+  const {currentTheme,setMeetingStatus,meetingStatus} = useContext(ThemeProvider);
   useEffect(() => {
     if (width < 800) setShowBackArrow(true);
   }, [width]);
@@ -30,7 +31,9 @@ const ChatHeader = ({ contact, setFocus }) => {
       return ["Offline", "#808080"];
     }
   };
-
+  const handleMeetingEnd = ()=>{
+    setMeetingStatus({status:false,roomId:defaultMeetingRoom});
+  }
   const getChatStatus = () => {
     if (!isGroup(contact.focus)) {
       const [text, color] = getStatus();
@@ -53,6 +56,7 @@ const ChatHeader = ({ contact, setFocus }) => {
 
   return (
     <React.Fragment>
+      <div className="flex flex-col flex-grow">
       <Row className={`w-100 align-center p-10 gap-10 position-relative text-base-content`}>
         <div data-theme={currentTheme} className="flex align-center w-100" style={{ gap: 20 }}>
           {showBackArrow && (
@@ -107,8 +111,51 @@ const ChatHeader = ({ contact, setFocus }) => {
               }}
             />
           )}
+         
         </div>
       </Row>
+      {meetingStatus.status && <>
+          <ResizablePIP>
+            <div>
+              <JaaSMeeting
+                appId={meetingAppId}
+                roomName={meetingStatus.roomId}
+                configOverwrite={{
+                  disableThirdPartyRequests: true,
+                  disableLocalVideoFlip: true,
+                  backgroundAlpha: 0.5,
+                  defaultLogoUrl: '',
+                  toolbarButtons: ['microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
+                    'fodeviceselection', 'hangup', 'profile', 'info',
+                    'recording', 'livestreaming', 'etherpad', 'sharedvideo', 'settings',
+                    'raisehand', 'videoquality', 'filmstrip', 'invite', 'feedback', 'stats',
+                    'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'mute-video-everyone']
+                }}
+                interfaceConfigOverwrite={{
+                  VIDEO_LAYOUT_FIT: 'nocrop',
+                  MOBILE_APP_PROMO: false,
+                  TILE_VIEW_MAX_COLUMNS: 4,
+                  
+                }}
+                userInfo = {{
+                  displayName: `${manager.user.first_name} ${manager.user.last_name}`
+              }}
+                onApiReady={(externalApi) => {
+                  if(!meetingStatus.isRecipient){
+                    const meetUrl = `https://8x8.vc/${meetingAppId}/${meetingStatus.roomId}`
+                    const content = `Hey, we're starting the meeting right now. Join us here:-${meetUrl}`
+                    connection.message.send(contact.focus, isGroup(contact.focus) ? "groupchat" : "chat", "text", content);
+                  }
+                }}
+                onReadyToClose={() => {
+                  handleMeetingEnd();
+                }}
+                getIFrameRef={(iframeRef) => { iframeRef.style.height = '700px'; }}
+              />
+            </div>
+          </ResizablePIP>
+        </>}
+        </div>
     </React.Fragment>
   );
 };
