@@ -169,7 +169,7 @@ const ChatInput = ({
             content={
               <div className="!bg-base-100">
                 <GifPicker
-                  tenorApiKey={"AIzaSyC6_hqpWtB6M_1VPM4PnKkg1mIJ50wdV8s"}
+                  tenorApiKey={process.env.REACT_APP_TENOR_API_KEY}
                   onGifClick={(ev) => {
                     // send GIF message
                     onSendMessage(ev["preview"], "gif");
