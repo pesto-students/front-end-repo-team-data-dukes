@@ -61,6 +61,19 @@ const ChatWindow = ({ contact }) => {
     );
   };
 
+  function displayBatchForDate(message) {
+    const currDate = new Date(message["datetime"]).toLocaleDateString();
+    
+    if (prevDate !== currDate) {
+      // Display your batch or perform any action here for the new date
+      prevDate = currDate;
+      return true
+      // Update prevDate to the current date to avoid displaying it again
+    } else {
+      // Date has not changed, do nothing or handle repeated dates if needed
+      return false
+    }
+  }
   return (
     <React.Fragment>
       <div
@@ -92,10 +105,7 @@ const ChatWindow = ({ contact }) => {
               return r["id"];
             }}
             renderItem={(message, index) => {
-              const currDate = new Date(message["datetime"]).toLocaleDateString();
-              const showDate = prevDate !== currDate;
-              prevDate = currDate;
-
+              const showDate = displayBatchForDate(message)
               if (message["messageType"] === "info") {
                 return (
                   <React.Fragment key={message["id"]}>

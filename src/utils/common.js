@@ -36,13 +36,38 @@ export const capitalizeFirstLetter = (string) => {
 };
 
 export const formatTime = (dateStr) => {
-  const date = new Date(dateStr);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const ampm = hours >= 12 ? "PM" : "AM";
-  const formattedHours = hours % 12 || 12;
-  const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
-  return `${formattedHours}:${formattedMinutes} ${ampm}`;
+  try {
+    if (!dateStr || typeof dateStr !== 'string') {
+      throw new Error('Invalid date format');
+    }
+
+    const date = new Date(dateStr);
+
+    if (isNaN(date.getTime())) {
+      throw new Error('Invalid date');
+    }
+
+    // Get hours, minutes, and seconds from the date
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    // Determine whether it's AM or PM
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    // Convert hours to 12-hour format
+    const formattedHours = hours % 12 || 12;
+
+    // Ensure minutes and seconds are formatted with leading zeros
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    // Assemble the formatted time string
+    const formattedTime = `${formattedHours}:${formattedMinutes} ${ampm}`;
+
+    return formattedTime;
+  } catch (error) {
+    console.error("Error formatting date:", error);
+    return dateStr; // Return the original date string in case of an error
+  }
 };
 
 export const formatDateMessage = (datetime) => {

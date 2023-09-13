@@ -83,7 +83,7 @@ const Register = () => {
       {showVerify && <Verify setShowVerify={setShowVerify} />}
       {!showVerify && (
         <div data-theme={currentTheme} className="flex h-full w-full">
-          <div className="flex-1 flex justify-center items-center bg-base-200">
+          <div className="hidden md:flex flex-1  justify-center items-center bg-base-200">
             <img src="./logo_talktime.png" alt="logo.png" />
           </div>
           <Form className="flex-1 bg-base-100" onFinish={onFinish}>

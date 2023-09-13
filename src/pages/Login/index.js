@@ -81,7 +81,7 @@ const Login = ({ AuthorizeUI, theme }) => {
       {!showVerify && (
         <>
           <div data-theme={currentTheme} className="h-full w-full flex">
-            <div className="flex-1 flex justify-center items-center bg-base-200">
+            <div className="hidden md:flex flex-1  justify-center items-center bg-base-200">
               <img src="./logo_talktime.png" alt="logo.png" />
             </div>
             <Form className=" flex-1 bg-base-100" onFinish={onFinish}>

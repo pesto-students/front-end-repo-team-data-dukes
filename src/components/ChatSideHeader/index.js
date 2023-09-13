@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { Drawer, Popover, Row } from "antd";
 import { connect } from "react-redux";
@@ -14,11 +14,12 @@ import {
 } from "../../utils/common";
 import StatusChanger from "../StatusChanger";
 import useEventHandler from "../../hooks/useEventHandler";
+import { ThemeProvider } from "../../store/context/ThemeProvider";
 
 const ChatSideHeader = ({ manager }) => {
   const [popUpUserVisible, setPopUpUserVisible] = useState(false);
   const [showBottomDrawer, setShowBottomDrawer] = useState(false);
-
+  const {currentTheme} = useContext(ThemeProvider)
   const { width } = useWindowDimensions();
 
   useEffect(() => {
@@ -33,7 +34,17 @@ const ChatSideHeader = ({ manager }) => {
 
   useEventHandler("show-create-group-drawer", resetPopUp);
   useEventHandler("show-create-contact-drawer", resetPopUp);
-
+  const themeColors={
+    cupcake:'rgb(239, 234, 230) ',
+    dark:'rgb(25, 30, 36) ',
+    valentine:'rgb(230, 188, 218) ',
+    light:'rgb(229, 231, 235) ',
+    synthwave:'rgb(14, 9, 32) ',
+    corporate:'rgb(237, 237, 237) ',
+    coffee:'rgb(12, 8, 12) ',
+    winter:'rgb(240, 246, 255) ',
+    retro:'rgb(219, 201, 154) '
+  }
   return (
     <div className="flex align-center justify-start flex-1 h-70 ">
       <Row
@@ -101,6 +112,7 @@ const ChatSideHeader = ({ manager }) => {
         <Drawer
           open={showBottomDrawer}
           onClose={() => setShowBottomDrawer(false)}
+          style={{backgroundColor:themeColors[currentTheme]}}
           placement="right"
           contentWrapperStyle={
             {
@@ -111,9 +123,9 @@ const ChatSideHeader = ({ manager }) => {
           }
           bodyStyle={{ paddingTop: 0, display: "flex", alignItems: "end" }}
           height={"200px"}
-          closeIcon={<IoCloseSharp size={22} color="#000" />}
+          closeIcon={<IoCloseSharp size={22} className="!text-red-500" />}
         >
-          <div className="w-100 !bg-base-100">
+          <div className="w-100 !bg-transparent">
             <ChatSideUserOption />
           </div>
         </Drawer>

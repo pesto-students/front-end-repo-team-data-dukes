@@ -124,7 +124,7 @@ const Profile = ({
   return (
     <>
       <div data-theme={currentTheme} className="flex h-screen w-screen">
-      <div className="flex-1 flex justify-center items-center bg-slate-800">
+      <div className="hidden md:flex flex-1  justify-center items-center bg-slate-800">
           <img src="./logo_talktime.png" className="text-green-400" alt="logo.png"/>
         </div>
       <Form className="flex-1" onFinish={onFinish} form={form}>

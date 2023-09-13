@@ -76,7 +76,7 @@ const GroupOptionDrawer = ({ connection, manager, contact, setFocus }) => {
           className="w-100 ml-5 flex align-center"
           style={{ fontSize: "12px", fontWeight: 600, color: "grey", justifyContent: "space-between" }}
         >
-          <div>{`${contact.details[contact.focus]?.participants?.length}`} Participant's</div>
+          <div>{`${contact.details[contact.focus]?.participants?.length}`} Participant{contact.details[contact.focus]?.participants?.length> 1 && 's'}</div>
           <div className="flex align-center cursor-pointer">
             {contact.details[contact.focus]?.isCurrentUserOwner && (
               <BiPlus size={20} className="text-base-content" onClick={() => setShowInviteDrawer(true)} />
@@ -236,19 +236,19 @@ const GroupOptionDrawer = ({ connection, manager, contact, setFocus }) => {
               paddingInline: "10px",
             }}
           >
-            {"Group Option's"}
+            {"Group Settings"}
           </h1>
         }
       >
         <div data-theme={currentTheme} className="flex h-100 bg-transparent" style={{ flexDirection: "column", justifyContent: "space-between" }}>
           <div className="flex">{participantContent}</div>
           <div className="flex" style={{ flexDirection: "column" }}>
-            <div className="w-100 ml-5 text-base-content" style={{ fontSize: "12px", fontWeight: 600, color: "grey" }}>
+            {/* <div className="w-100 ml-5 text-base-content" style={{ fontSize: "12px", fontWeight: 600, color: "grey" }}>
               Room Setting's
-            </div>
+            </div> */}
             <Divider style={{ marginBlock: "12px" }} />
             <Button
-              className="fw-600 fs-12 w-100 bg-primary hover:bg-primary-focus hover:!text-primary-content border-none text-primary-content"
+              className="fw-600 fs-12 w-100 bg-primary hover:bg-primary-focus text-center hover:!text-primary-content border-none text-primary-content"
               type="default"
               style={{
                 border: "none",
