@@ -115,7 +115,12 @@ const ChatHeader = ({ contact, setFocus,manager,connection }) => {
         </div>
       </Row>
       {meetingStatus.status && <>
-          <ResizablePIP>
+          <ResizablePIP
+          width={700}
+          heigt={700}
+          minConstraints={[600, 600]}
+          maxConstraints={[900, 900]}
+          >
             <div>
               <JaaSMeeting
                 appId={meetingAppId}
