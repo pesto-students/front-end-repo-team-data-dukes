@@ -2,7 +2,7 @@
 
 # TalkTime
 
-![ProDB-kit Logo](./public/appLogo.png)
+![TalkTime Logo](./public/appLogo.png)
 
 Elevate your communication game with the exhilarating new TalkTime website! Seamlessly navigate your account, chat, share media, and dive into group discussions – all from one convenient hub. Embrace the sleek and user-friendly interface that effortlessly molds to your device, guaranteeing a seamless experience no matter your location. And that's not all – prepare to be enchanted as we unveil an array of enchanting themes for you to handpick. Get set to redefine your TalkTime journey – it's a dynamic, intuitive, and completely personalized adventure awaiting you!
 
