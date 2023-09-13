@@ -47,7 +47,7 @@ const ChatLayout = ({ contact, connection }) => {
             {contact.focus ? (
               <React.Fragment>
                 <Header className = "!bg-base-100 !text-base-content" style={headerStyle}>
-                  <ChatHeader />
+                <ChatHeader connection={connection}/>
                 </Header>
                 <Content className="!bg-base-100 !text-base-content" style={contentStyle}>
                   <ChatWindow />
