@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Form, Button, Col, Divider, Input, Row, Upload } from "antd";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
@@ -14,8 +14,13 @@ import { showNotification } from "../../utils/common";
 import { TbLogout } from "react-icons/tb";
 import { AuthorizeUI, ResetUI } from "../../store/actions/managerAction";
 import { updateUserProfile } from "../../api/fetch";
+import { ThemeProvider } from "../../store/context/ThemeProvider";
 
-const Profile = ({ manager, AuthorizeUI, ResetUI }) => {
+const Profile = ({
+  manager,
+  AuthorizeUI,
+  ResetUI
+}) => {
   const [image, setImage] = useState(null);
   const [imageInfo, setImageInfo] = useState(null);
 
@@ -23,7 +28,7 @@ const Profile = ({ manager, AuthorizeUI, ResetUI }) => {
   const [emailDisabled, setEmailDisabled] = useState(false);
   const [mobileDisabled, setMobileDisabled] = useState(false);
   const [profileSubmitBtnLoading, setProfileSubmitBtnLoading] = useState(false);
-
+  const {currentTheme} = useContext(ThemeProvider);
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
@@ -50,12 +55,7 @@ const Profile = ({ manager, AuthorizeUI, ResetUI }) => {
     updateUserProfile(values)
       .then((res) => {
         if (res.status === 200) {
-          AuthorizeUI({
-            isProfileCompleted: true,
-            isAuthorized: manager.isAuthorized,
-            token: manager.token,
-            user: { ...manager.user, ...values },
-          });
+          AuthorizeUI({ isProfileCompleted: true, isAuthorized: manager.isAuthorized, token: manager.token, user: {...manager.user, ...values} });
         }
       })
       .catch((err) => {
@@ -100,7 +100,9 @@ const Profile = ({ manager, AuthorizeUI, ResetUI }) => {
     } else if (!values["last_name"]) {
       setError("Last Name is Required !");
     } else if (values["email_id"] && !EMAIL_REGEX.test(values["email_id"])) {
-      setError("Invalid Email ID ! ex : ( user@talktimeapp.com )");
+      setError(
+        "Invalid Email ID ! ex : ( user@localhost | user@localhost.com )"
+      );
     } else if (values["mobile_no"] && values["mobile_no"].length != 10) {
       setError("Invalid Mobile Number ! ex : ( 9876543210 )");
     } else {
@@ -121,128 +123,127 @@ const Profile = ({ manager, AuthorizeUI, ResetUI }) => {
 
   return (
     <>
-      <div className="flex h-screen w-screen">
-        <div className="flex-1 flex justify-center items-center bg-base-300">
-          <img
-            src="./logo_talktime.png"
-            className="text-green-400"
-            alt="logo.png"
-          />
+      <div data-theme={currentTheme} className="flex h-screen w-screen">
+      <div className="flex-1 flex justify-center items-center bg-slate-800">
+          <img src="./logo_talktime.png" className="text-green-400" alt="logo.png"/>
         </div>
-        <Form className="flex-1 bg-base-100" onFinish={onFinish} form={form}>
-          <Row className="parent-holder">
-            <Row className="sub-parent-holder">
-              <Col xs={26} md={10} className="form-holder bg-base-100">
-                <div
-                  className="fs-12 w-100 fw-600 bg-base-100 cursor-pointer color-danger flex align-center justify-end"
-                  onClick={() => {
-                    ResetUI();
-                  }}
-                >
-                  Logout{" "}
-                  <TbLogout style={{ marginLeft: "5px", marginTop: "1px" }} />
-                </div>
-                <h1 className="form-header-style text-base-content">Almost There </h1>
+      <Form className="flex-1" onFinish={onFinish} form={form}>
+        <Row className="parent-holder ">
+          <Row className="sub-parent-holder bg-base-100">
+            
 
-                <div className="desc-style text-base-content">
-                  Please complete your profile to proceed.
-                </div>
+            <Col xs={24} md={10} className="form-holder ">
+              <div
+                className="fs-12 w-100 fw-600 cursor-pointer color-danger flex align-center justify-end"
+                onClick={() => {
+                  ResetUI();
+                }}
+              >
+                Logout{" "}
+                <TbLogout style={{ marginLeft: "5px", marginTop: "1px" }} />
+              </div>
+              <h1 className="form-header-style text-base-content">Almost There !</h1>
 
-                <Upload
-                  listType="picture-circle"
-                  onChange={handleChange}
-                  showUploadList={false}
-                  customRequest={() => {}}
-                  className="w-100 flex justify-center bg-base-100 "
-                >
-                  <div className="img-wrapper bg-base-100">
-                    {image && (
-                      <img
-                        src={image}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                        }}
-                        className="!text-base-content"
-                      />
-                    )}
+              <div className="desc-style grey">
+                Please complete your profile to proceed.
+              </div>
 
-                    <div
-                      className="flex justify-center align-center hover:!text-base-200"
+              <Upload
+                listType="picture-circle"
+                onChange={handleChange}
+                showUploadList={false}
+                customRequest={() => {}}
+                className="w-100 flex justify-center"
+              >
+                <div className="relative rounded-full w-24 h-24 overflow-hidden">
+                  {image ? (
+                    <img
+                      src={image}
                       style={{
-                        backgroundColor: "whitesmoke",
                         width: "100%",
                         height: "100%",
+                        objectFit: "cover",
                       }}
-                    >
-                      <AiOutlineUser
-                        size={60}
-                        style={{ marginTop: "-4px", color: "grey" }}
-                        className="bg-base-100"
-                      />
-                    </div>
-                    <div className="text-overlay">
-                      <MdModeEditOutline size={17} className="text-base-content"/>
-                    </div>
+                    />
+                  ):
+                  (<>
+                       <div
+                    className="flex justify-center align-center"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  >
+                    <AiOutlineUser
+                      size={60}
+                      style={{ marginTop: "-4px", color: "grey" }}
+                    />
                   </div>
-                </Upload>
+                  <div className="text-overlay">
+                    <MdModeEditOutline size={17} />
+                  </div>
+                  </>)
+                  }
 
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "100%",
-                    gap: "10px",
-                  }}
-                >
-                  <Form.Item name="first_name" className="w-100 m-0">
-                    <Input
-                      size="large"
-                      placeholder="First Name"
-                      className="bg-base-200 text-base-content placeholder:!text-base-content border-none"
-                      classNames={{input:'bg-base-200 text-base-content placeholder:!text-base-content border-none'}}
-                      style={{ marginBottom: "10px" }}
-                    />
-                  </Form.Item>
-
-                  <Form.Item name="last_name" className="w-100 m-0">
-                    <Input
-                      size="large"
-                      placeholder="Last Name"
-                      className="bg-base-200 text-base-content placeholder:!text-base-content border-none"
-                      classNames={{input:'bg-base-200 text-base-content placeholder:!text-base-content border-none'}}
-                     
-                      style={{ marginBottom: "10px" }}
-                    />
-                  </Form.Item>
+             
                 </div>
+              </Upload>
 
-                <Form.Item name="email_id" className="w-100 m-0">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  gap: "10px",
+                }}
+              >
+                <Form.Item name="first_name" className="w-100 m-0">
                   <Input
                     size="large"
-                    placeholder="Email ID"
+                    placeholder="First Name"
+                    style={{ marginBottom: "10px" }}
                     className="mbo-10 bg-base-200 text-base-content placeholder:!text-base-content border-none"
-                    classNames={{input:'bg-base-200 !text-base-content placeholder:!text-base-content border-none'}}
-                    disabled={emailDisabled}
+                    classNames={{input:'bg-base-200 text-base-content placeholder:!text-base-content'}}
                   />
                 </Form.Item>
 
-                {error && <div className="input-error-style">{error}</div>}
+                <Form.Item name="last_name" className="w-100 m-0">
+                  <Input
+                    size="large"
+                    placeholder="Last Name"
+                    style={{ marginBottom: "10px" }}
+                    className="mbo-10 bg-base-200 text-base-content placeholder:!text-base-content border-none"
+                    classNames={{input:'bg-base-200 text-base-content placeholder:!text-base-content'}}
+                  />
+                </Form.Item>
+              </div>
 
-                <Button
-                  type="primary"
+              <Form.Item name="email_id" className="w-100 m-0">
+                <Input
                   size="large"
-                  className="w-100 mt-20 fs-12 fw-600 bg-primary hover:!bg-primary-focus hover:!text-primary-content border-none text-primary-content "
-                  htmlType="submit"
-                  loading={profileSubmitBtnLoading}
-                >
-                  Complete Profile
-                </Button>
-              </Col>
-            </Row>
+                  placeholder="Email ID"
+                  disabled={emailDisabled}
+                  className="mbo-10 bg-base-200 text-base-content border-none"
+                  classNames={{input:'bg-base-200 !text-base-content placeholder:!text-base-content'}}
+                />
+              </Form.Item>
+
+
+              {error && <div className="input-error-style">{error}</div>}
+
+              <Button
+                type="primary"
+                size="large"
+                className="w-100 mt-20 mw-100 fs-12 fw-600 bg-primary hover:!bg-primary-focus hover:!text-primary-content border-none text-primary-content "
+                htmlType="submit"
+                loading={profileSubmitBtnLoading}
+              >
+                Complete Profile
+              </Button>
+            </Col>
           </Row>
-        </Form>
+        </Row>
+      </Form>
       </div>
     </>
   );
@@ -255,7 +256,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   AuthorizeUI: AuthorizeUI,
-  ResetUI: ResetUI,
+  ResetUI: ResetUI
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

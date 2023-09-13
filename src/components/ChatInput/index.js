@@ -1,33 +1,62 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import GifPicker from "gif-picker-react";
 import EmojiPicker from "emoji-picker-react";
 
 import { Input, Popover, Upload } from "antd";
 import { connect } from "react-redux";
-
 import { TbGif, TbPhoto, TbSend } from "react-icons/tb";
 import { FiPaperclip } from "react-icons/fi";
-import { BiSmile } from "react-icons/bi";
+import { BiSmile, BiPlay } from "react-icons/bi";
 import { HiOutlineDocumentText } from "react-icons/hi";
+import { FaVideo, FaPlayCircle } from "react-icons/fa";
 
 import "./index.css";
-import { getBase64, isGroup, showNotificationMessage } from "../../utils/common";
-import { InsertIntoRoster, InsertNewMessage } from "../../store/actions/contactAction";
+import {
+  getBase64,
+  isGroup,
+  showNotificationMessage,
+} from "../../utils/common";
+import {
+  InsertIntoRoster,
+  InsertNewMessage,
+} from "../../store/actions/contactAction";
 import { upload } from "../../api/fetch";
 import { generate_id } from "../../stanza/utils";
-const ChatInput = ({ connection, contact, manager, InsertNewMessage, InsertIntoRoster }) => {
+import { ThemeProvider } from "../../store/context/ThemeProvider";
+import { nanoid } from "@reduxjs/toolkit";
+
+const ChatInput = ({
+  connection,
+  contact,
+  manager,
+  InsertNewMessage,
+  InsertIntoRoster,
+}) => {
   const [input, setInput] = useState("");
   const [inputSize, setInputSize] = useState(30);
   const inputTagRef = useRef(null);
-
+  const { meetingStatus, setMeetingStatus } = useContext(ThemeProvider);
   const onSendMessage = (input, type = "text") => {
     if (type == "text" && input.trim() !== "") {
-      connection.message.send(contact.focus, isGroup(contact.focus) ? "groupchat" : "chat", type, input);
+      connection.message.send(
+        contact.focus,
+        isGroup(contact.focus) ? "groupchat" : "chat",
+        type,
+        input
+      );
     } else {
-      connection.message.send(contact.focus, isGroup(contact.focus) ? "groupchat" : "chat", type, input);
+      connection.message.send(
+        contact.focus,
+        isGroup(contact.focus) ? "groupchat" : "chat",
+        type,
+        input
+      );
     }
   };
-
+  const handleMeetingStart = () => {
+    const id = nanoid(10);
+    setMeetingStatus({ status: !meetingStatus.status, roomId: id ,isRecipient:false});
+  };
   const handleChange = (info, bin) => {
     getBase64(info.file.originFileObj, (url) => {
       const message_id = generate_id();
@@ -107,7 +136,20 @@ const ChatInput = ({ connection, contact, manager, InsertNewMessage, InsertIntoR
 
   const InputPrefix = (
     <React.Fragment>
-      <div className="flex align-center text-primary-content bg-base-100">
+      <div className="flex align-center text-primary-content bg-base-100 ">
+        {!meetingStatus.status ? (
+          <FaVideo
+            size={25}
+            onClick={handleMeetingStart}
+            className="text-base-content mr-2"
+          />
+        ) : (
+          <FaPlayCircle
+            size={34}
+            onClick={handleMeetingStart}
+            className="text-base-content"
+          />
+        )}
         <Popover
           content={<ImgDocSelector />}
           align={{ offset: [-10, -10] }}
@@ -115,53 +157,64 @@ const ChatInput = ({ connection, contact, manager, InsertNewMessage, InsertIntoR
           showArrow={true}
           placement="topLeft"
         >
-          <FiPaperclip className="cursor-pointer grey" style={{ marginInline: "7px" }} size={18} />
+          <FiPaperclip
+            className="cursor-pointer grey"
+            style={{ marginInline: "7px" }}
+            size={18}
+          />
         </Popover>
         <div className="!bg-base-100">
-        <Popover
-          content={
-            <div className="!bg-base-100">
-            <GifPicker
-              tenorApiKey={process.env.REACT_APP_TENOR_API_KEY}
-              onGifClick={(ev) => {
-                // send GIF message
-                onSendMessage(ev["preview"], "gif");
-              }}
+          <Popover
+            content={
+              <div className="!bg-base-100">
+                <GifPicker
+                  tenorApiKey={process.env.REACT_APP_TENOR_API_KEY}
+                  onGifClick={(ev) => {
+                    // send GIF message
+                    onSendMessage(ev["preview"], "gif");
+                  }}
+                />
+              </div>
+            }
+            align={{ offset: [-10, -10] }}
+            trigger="hover"
+            showArrow={true}
+            placement="topLeft"
+          >
+            <TbGif
+              className="cursor-pointer grey"
+              style={{ marginInline: "7px", marginRight: "2px" }}
+              size={24}
             />
-            </div>
-          }
-          align={{ offset: [-10, -10] }}
-          trigger="hover"
-          showArrow={true}
-          placement="topLeft"
-        >
-          <TbGif className="cursor-pointer grey" style={{ marginInline: "7px", marginRight: "2px" }} size={24} />
-        </Popover>
+          </Popover>
         </div>
         <div className="bg-base-100 !text-white">
-        <Popover
-          content={
-            <div className="!text-primary-content">
-            <EmojiPicker
-              emojiStyle="google"
-              onEmojiClick={(e) => {
-                setInput((prev) => prev + e.emoji);
-                inputTagRef.current?.focus();
-              }}
-              
-              previewConfig={{ showPreview: false }}
-              lazyLoadEmojis={true}
+          <Popover
+            content={
+              <div className="!text-primary-content">
+                <EmojiPicker
+                  emojiStyle="google"
+                  onEmojiClick={(e) => {
+                    setInput((prev) => prev + e.emoji);
+                    inputTagRef.current?.focus();
+                  }}
+                  previewConfig={{ showPreview: false }}
+                  lazyLoadEmojis={true}
+                />
+              </div>
+            }
+            align={{ offset: [-10, -10] }}
+            trigger="hover"
+            showArrow={true}
+            className="!text-gray"
+            placement="topLeft"
+          >
+            <BiSmile
+              className="cursor-pointer grey"
+              style={{ marginInline: "7px" }}
+              size={22}
             />
-            </div>
-          }
-          align={{ offset: [-10, -10] }}
-          trigger="hover"
-          showArrow={true}
-          className="!text-gray"
-          placement="topLeft"
-        >
-          <BiSmile className="cursor-pointer grey" style={{ marginInline: "7px" }} size={22} />
-        </Popover>
+          </Popover>
         </div>
       </div>
     </React.Fragment>
@@ -176,6 +229,7 @@ const ChatInput = ({ connection, contact, manager, InsertNewMessage, InsertIntoR
       }}
     >
       {InputPrefix}
+
       <Input.TextArea
         id="input-chat-ta"
         ref={inputTagRef}
@@ -183,7 +237,7 @@ const ChatInput = ({ connection, contact, manager, InsertNewMessage, InsertIntoR
           setInputSize(size.height);
         }}
         autoSize={{ maxRows: 5 }}
-        className="send w-100 bg-base-200 text-base-content placeholder:!text-base-content border-none !rounded"
+        className="send w-100 bg-base-200 text-base-content placeholder:!text-base-content border-none !rounded "
         placeholder="Send a message ..."
         size="large"
         value={input}
@@ -199,6 +253,7 @@ const ChatInput = ({ connection, contact, manager, InsertNewMessage, InsertIntoR
           border: "none",
           borderRadius: "0px",
           padding: "10px",
+          marginRight: "10px",
           fontSize: "13px",
           boxShadow: "none",
           textAlign: "start",
