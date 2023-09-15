@@ -109,7 +109,7 @@ const Chat = ({
       InitContactsDetails(groupContactDetails);
 
       // Query all rosters history messages
-      queryHistoryMessages(connection, rosters, onHistoryMessage, 50);
+      queryHistoryMessages(connection, rosters, onHistoryMessage, 100);
     });
   };
   const onRosterFailure = (st) => {
