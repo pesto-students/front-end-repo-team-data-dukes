@@ -13,9 +13,10 @@ import DocMessage from "../Message/DocMessage";
 import useEventHandler from "../../hooks/useEventHandler";
 
 const ChatWindow = ({ contact }) => {
-  let prevDate = null;
+  let prevDate = Date.now().toLocaleString;
   const [loadMore, setLoadMore] = useState(false);
-
+  const filteredMessages = contact.message[contact.focus].filter(message=>message["datetime"]!==null)
+  console.log(filteredMessages);
   // Can you use this to prevent autoscroll on message
   const [currentScrollHeight, setCurrentScrollHeight] = useState(0);
   const onQueryHistoryMessageLoaded = () => {
@@ -60,11 +61,12 @@ const ChatWindow = ({ contact }) => {
       })
     );
   };
-
+console.log("messages",contact.message[contact.focus]);
   function displayBatchForDate(message) {
     const currDate = new Date(message["datetime"]).toLocaleDateString();
-    
+    console.log("🚀 ~ file: index.js:66 ~ displayBatchForDate ~ currDate:", currDate)
     if (prevDate !== currDate) {
+      console.log("🚀 ~ file: index.js:69 ~ displayBatchForDate ~ prevDate:", prevDate,"value is true",currDate)
       // Display your batch or perform any action here for the new date
       prevDate = currDate;
       return true
@@ -100,7 +102,7 @@ const ChatWindow = ({ contact }) => {
         >
           <List
             style={{ minHeight: "100%" }}
-            dataSource={contact.message[contact.focus]}
+            dataSource={filteredMessages  }
             rowKey={(r) => {
               return r["id"];
             }}
