@@ -1,0 +1,11 @@
+.search-prefix {
+  padding-inline: 10px !important;
+}
+
+.search {
+  font-size: 12px !important;
+}
+
+.contact::-webkit-scrollbar {
+  width: 0px !important;
+}

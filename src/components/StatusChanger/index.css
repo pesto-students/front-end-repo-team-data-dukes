@@ -1,0 +1,28 @@
+.ant-select-selection-item {
+  font-size: 11px !important;
+  margin-right: 10px !important;
+}
+
+.ant-select-arrow {
+  font-size: 10px !important;
+}
+
+.ant-select-selector {
+  display: flex !important;
+  height: 20px !important;
+  align-items: center !important;
+  padding: 0px !important;
+}
+
+.ant-select-item-option-content {
+  font-size: 11px !important;
+}
+
+.ant-select-item-option {
+  align-items: center !important;
+}
+
+.ant-select-selection-item {
+  color: #007bff !important;
+  font-weight: 600 !important;
+}

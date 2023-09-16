@@ -1,0 +1,64 @@
+/* .ant-input:focus {
+  border-color: transparent !important;
+  outline: 0;
+  box-shadow: none !important;
+} */
+
+.EmojiPickerReact.epr-main {
+  border: none !important;
+  background-color: inherit !important;
+}
+
+.GifPickerReact.gpr-main {
+  border: none !important;
+}
+
+.ant-mentions {
+  padding: 0 !important;
+  place-self: center !important;
+  display: flex;
+}
+
+.ant-mentions-dropdown-menu {
+  margin: 0;
+}
+
+.ant-mentions-dropdown-menu-item {
+  margin: 5px !important;
+  border-radius: 5px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+.ant-mentions-dropdown-menu-item-active {
+  background-color: inherit !important;
+  color: inherit !important;
+}
+.epr-emoji-category-label{
+  color: inherit !important;
+  background-color: inherit !important;
+}
+.epr-emoji-list{
+  color: inherit !important;
+}
+.ant-popover-inner{
+  background-color: inherit !important;
+}
+.ant-popover-inner-content{
+  color: inherit !important;
+}
+.ant-popover-content{
+  color: inherit !important;
+}
+.gpr-header{
+  background-color: inherit !important;
+  color: inherit !important;
+}
+.gpr-body{
+  background-color: inherit !important;
+  color: inherit !important;
+}
+.GifPickerReact .gpr-main{
+  color: inherit !important;
+  background-color: inherit !important;
+} 

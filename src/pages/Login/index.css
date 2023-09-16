@@ -1,0 +1,88 @@
+.ant-input {
+  font-size: 12px;
+  padding-block: 10px;
+}
+
+.parent-container {
+  height: -moz-calc(100% - (35px + 30px)) !important;
+  height: -webkit-calc(100% - (35px + 30px)) !important;
+  height: calc(100% - (35px + 30px)) !important;
+}
+
+.child-container {
+  height: -moz-calc(100% - (35px + 30px)) !important;
+  height: -webkit-calc(100% - (35px + 30px)) !important;
+  height: calc(100% - (35px + 30px)) !important;
+}
+
+.parent-holder {
+  height: 100%;
+  /* height: calc(100% - 38px); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sub-parent-holder {
+  border-radius: 20px;
+  flex-direction: row;
+  width: 100%;
+  max-width: 1000px;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider-holder {
+  display: flex;
+  align-items: center;
+  margin-right: 50px;
+}
+
+.lottie-holder {
+  width: 100%;
+  height: 350px;
+}
+
+.divider-style {
+  height: 300px;
+}
+
+.form-holder {
+  display: flex;
+  padding: 20px;
+  max-width: 390px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-header-style {
+  font-weight: 800;
+  text-align: start;
+  font-family: "poppins";
+  font-size: 32px;
+  margin-left: -1px;
+}
+
+.forgot-link-style {
+  font-size: 11px;
+  text-align: end;
+  width: 100%;
+  font-weight: 600;
+  font-family: poppins;
+}
+
+.ant-input-password-large {
+  font-size: 12px;
+  padding-block: 10px;
+}
+
+.desc-style {
+  font-weight: 700;
+  font-size: 12px;
+  text-align: start;
+  margin-block: 7px;
+}
+
+.link-style {
+  font-weight: 700;
+}
