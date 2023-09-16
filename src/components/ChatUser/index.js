@@ -7,18 +7,11 @@ import { GoPrimitiveDot } from "react-icons/go";
 import "./index.css";
 import { capitalizeFirstLetter, formatTime, isGroup } from "../../utils/common";
 
-const getFilteredMessages = (contact,jid)=>{
-  if(contact.message[jid]){
-    return contact.message[jid]?.filter((message)=>message.datetime !== null)
-  }else{
-    return []
-  }
-  
-}
-
-
 const ChatUser = ({ jid, contact, manager }) => {
-  const fileteredMessages = getFilteredMessages(contact,jid)
+  const fileteredMessages = contact.message[jid]?.filter((message)=>message.datetime !== null)
+  console.log("filtereed",fileteredMessages?.at(-1))
+  console.log("ChatUser",contact.message[jid]);
+  console.log("chatuser",contact.message[jid]);
   const AvatarViewSelector = () => {
     return (
       <div className="flex" style={{ marginTop: "4.33px" }}>
@@ -81,9 +74,8 @@ const ChatUser = ({ jid, contact, manager }) => {
   };
 
   const LastMessageRender = () => {
-    if (fileteredMessages.at(-1)?.messageType === "text" || fileteredMessages.at(-1)?.messageType === "info") {
-      console.log("Hello world ",fileteredMessages?.at(-1).content)
-      return fileteredMessages?.at(-1).content ?? "";
+    if (contact.message[jid]?.at(-1)?.messageType === "text" || contact.message[jid]?.at(-1)?.messageType === "info") {
+      return contact.message[jid]?.at(-1)?.content;
     } else if (contact.message[jid]?.at(-1)?.messageType === "gif") {
       return "GIF";
     } else if (contact.message[jid]?.at(-1)?.messageType === "img") {

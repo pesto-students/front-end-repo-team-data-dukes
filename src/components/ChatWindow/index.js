@@ -12,18 +12,11 @@ import "./index.css";
 import DocMessage from "../Message/DocMessage";
 import useEventHandler from "../../hooks/useEventHandler";
 
-const chatMessage = (contact)=>{
-  if(contact.message[contact.focus]){
-    return contact.message[contact.focus].filter(message=>message["datetime"]!==null)
-  }else{
-    return []
-  }
-}
-
 const ChatWindow = ({ contact }) => {
   let prevDate = Date.now().toLocaleString;
   const [loadMore, setLoadMore] = useState(false);
-  const filteredMessages = chatMessage(contact)
+  const filteredMessages = contact.message[contact.focus].filter(message=>message["datetime"]!==null)
+  console.log(filteredMessages);
   // Can you use this to prevent autoscroll on message
   const [currentScrollHeight, setCurrentScrollHeight] = useState(0);
   const onQueryHistoryMessageLoaded = () => {
@@ -60,19 +53,20 @@ const ChatWindow = ({ contact }) => {
   useEventHandler("new-chat-message", onIncomingMessageScroll);
 
   const fetchHistory = () => {
-    if(contact.message[contact.focus].at(0)["id"]){
-      setLoadMore(true);
-      window.dispatchEvent(
-        new CustomEvent("fetch-user-history-message", {
-          detail: { _with: contact.focus, lastId: contact.message[contact.focus].at(0)["id"], max: 5 },
-        })
-      );
-    }
-   
+    console.log(`FETCH MAM QUERY ${contact.focus}`);
+    setLoadMore(true);
+    window.dispatchEvent(
+      new CustomEvent("fetch-user-history-message", {
+        detail: { _with: contact.focus, lastId: contact.message[contact.focus].at(0)["id"], max: 5 },
+      })
+    );
   };
+console.log("messages",contact.message[contact.focus]);
   function displayBatchForDate(message) {
     const currDate = new Date(message["datetime"]).toLocaleDateString();
+    console.log("🚀 ~ file: index.js:66 ~ displayBatchForDate ~ currDate:", currDate)
     if (prevDate !== currDate) {
+      console.log("🚀 ~ file: index.js:69 ~ displayBatchForDate ~ prevDate:", prevDate,"value is true",currDate)
       // Display your batch or perform any action here for the new date
       prevDate = currDate;
       return true
